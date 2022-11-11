@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{f3517657-f0cd-41e2-a8c0-639b2cb9af18}</ProjectGuid>
+    <RootNamespace>DolphinEngine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLEW_STATIC;MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)DolphinEngine\Dependencies\GLFW\include;$(SolutionDir)DolphinEngine\Dependencies\GLEW\include;$(SolutionDir)DolphinEngine\Source\Components;$(SolutionDir)DolphinEngine\Source\Core;$(SolutionDir)DolphinEngine\Source\Graphics;$(SolutionDir)DolphinEngine\Source;$(SolutionDir)DolphinEngine\Source\Core\Utils;$(SolutionDir)DolphinEngine\Dependencies\Assimp\include;$(SolutionDir)DolphinEngine\Source\Graphics\Buffers;$(SolutionDir)DolphinEngine\Source\Graphics\Textures;$(SolutionDir)DolphinEngine\Source\Graphics\Meshes;$(SolutionDir)DolphinEngine\Source\Graphics\Shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PreprocessToFile>false</PreprocessToFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ShowProgress>NotSet</ShowProgress>
+      <AdditionalLibraryDirectories>$(SolutionDir)DolphinEngine\Dependencies\GLFW\lib-vc2022;$(SolutionDir)DolphinEngine\Dependencies\GLEW\lib\Release\x64;$(SolutionDir)DolphinEngine\Dependencies\Assimp\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);opengl32.lib;glfw3.lib;glew32s.lib;assimp.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLEW_STATIC;MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)DolphinEngine\Dependencies\GLFW\include;$(SolutionDir)DolphinEngine\Dependencies\GLEW\include;$(SolutionDir)DolphinEngine\Source\Components;$(SolutionDir)DolphinEngine\Source\Core;$(SolutionDir)DolphinEngine\Source\Graphics;$(SolutionDir)DolphinEngine\Source;$(SolutionDir)DolphinEngine\Source\Core\Utils;$(SolutionDir)DolphinEngine\Dependencies\Assimp\include;$(SolutionDir)DolphinEngine\Source\Graphics\Buffers;$(SolutionDir)DolphinEngine\Source\Graphics\Textures;$(SolutionDir)DolphinEngine\Source\Graphics\Meshes;$(SolutionDir)DolphinEngine\Source\Graphics\Shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PreprocessToFile>false</PreprocessToFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ShowProgress>NotSet</ShowProgress>
+      <AdditionalLibraryDirectories>$(SolutionDir)DolphinEngine\Dependencies\GLFW\lib-vc2022;$(SolutionDir)DolphinEngine\Dependencies\GLEW\lib\Release\x64;$(SolutionDir)DolphinEngine\Dependencies\Assimp\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);opengl32.lib;glfw3.lib;glew32s.lib;assimp.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLEW_STATIC;MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)DolphinEngine\Dependencies\GLFW\include;$(SolutionDir)DolphinEngine\Dependencies\GLEW\include;$(SolutionDir)DolphinEngine\Source\Components;$(SolutionDir)DolphinEngine\Source\Core;$(SolutionDir)DolphinEngine\Source\Graphics;$(SolutionDir)DolphinEngine\Source;$(SolutionDir)DolphinEngine\Source\Core\Utils;$(SolutionDir)DolphinEngine\Dependencies\Assimp\include;$(SolutionDir)DolphinEngine\Source\Graphics\Buffers;$(SolutionDir)DolphinEngine\Source\Graphics\Textures;$(SolutionDir)DolphinEngine\Source\Graphics\Meshes;$(SolutionDir)DolphinEngine\Source\Graphics\Shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PreprocessToFile>false</PreprocessToFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ShowProgress>NotSet</ShowProgress>
+      <AdditionalLibraryDirectories>$(SolutionDir)DolphinEngine\Dependencies\GLFW\lib-vc2022;$(SolutionDir)DolphinEngine\Dependencies\GLEW\lib\Release\x64;$(SolutionDir)DolphinEngine\Dependencies\Assimp\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);opengl32.lib;glfw3.lib;glew32s.lib;assimp.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLEW_STATIC;MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)DolphinEngine\Dependencies\GLFW\include;$(SolutionDir)DolphinEngine\Dependencies\GLEW\include;$(SolutionDir)DolphinEngine\Source\Components;$(SolutionDir)DolphinEngine\Source\Core;$(SolutionDir)DolphinEngine\Source\Graphics;$(SolutionDir)DolphinEngine\Source;$(SolutionDir)DolphinEngine\Source\Core\Utils;$(SolutionDir)DolphinEngine\Dependencies\Assimp\include;$(SolutionDir)DolphinEngine\Source\Graphics\Buffers;$(SolutionDir)DolphinEngine\Source\Graphics\Textures;$(SolutionDir)DolphinEngine\Source\Graphics\Meshes;$(SolutionDir)DolphinEngine\Source\Graphics\Shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PreprocessToFile>false</PreprocessToFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ShowProgress>NotSet</ShowProgress>
+      <AdditionalLibraryDirectories>$(SolutionDir)DolphinEngine\Dependencies\GLFW\lib-vc2022;$(SolutionDir)DolphinEngine\Dependencies\GLEW\lib\Release\x64;$(SolutionDir)DolphinEngine\Dependencies\Assimp\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);opengl32.lib;glfw3.lib;glew32s.lib;assimp.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Components\CameraControllerComponent.cpp" />
+    <ClCompile Include="Source\Core\Input.cpp" />
+    <ClCompile Include="Source\Core\Component.cpp" />
+    <ClCompile Include="Source\Components\MeshComponent.cpp" />
+    <ClCompile Include="Source\Core\SceneObject.cpp" />
+    <ClCompile Include="Source\Core\Utils\EventArgs.cpp" />
+    <ClCompile Include="Source\Core\Scene.cpp" />
+    <ClCompile Include="Source\Core\App.cpp" />
+    <ClCompile Include="Source\Core\Main.cpp" />
+    <ClCompile Include="Source\Graphics\Shaders\ShaderProgram.cpp" />
+    <ClCompile Include="Source\Graphics\Textures\Image.cpp" />
+    <ClCompile Include="Source\Graphics\Meshes\Mesh.cpp" />
+    <ClCompile Include="Source\Graphics\Meshes\MeshData.cpp" />
+    <ClCompile Include="Source\Graphics\Rendering.cpp" />
+    <ClCompile Include="Source\Graphics\Shaders\Shader.cpp" />
+    <ClCompile Include="Source\Graphics\Buffers\VertexArray.cpp" />
+    <ClCompile Include="Source\Graphics\Textures\Texture.cpp" />
+    <ClCompile Include="Source\stb\stb.cpp" />
+    <ClCompile Include="Source\stb\stb_vorbis.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Components\CameraControllerComponent.h" />
+    <ClInclude Include="Source\Core\Utils\Utils.h" />
+    <ClInclude Include="Source\Graphics\Buffers\AttribBuffer.h" />
+    <ClInclude Include="Source\Core\Input.h" />
+    <ClInclude Include="Source\Core\Utils\ReadOnlyProperty.h" />
+    <ClInclude Include="Source\Core\Utils\Property.h" />
+    <ClInclude Include="Source\Components\CameraComponent.h" />
+    <ClInclude Include="Source\Core\Component.h" />
+    <ClInclude Include="Source\Components\MeshComponent.h" />
+    <ClInclude Include="Source\Core\Utils\Event.h" />
+    <ClInclude Include="Source\Core\SceneObject.h" />
+    <ClInclude Include="Source\Core\Utils\EventArgs.h" />
+    <ClInclude Include="Source\Core\Scene.h" />
+    <ClInclude Include="Source\Core\App.h" />
+    <ClInclude Include="Source\Core\Transform.h" />
+    <ClInclude Include="Source\Graphics\Buffers\Buffer.h" />
+    <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.h" />
+    <ClInclude Include="Source\Graphics\Shaders\ShaderProgram.h" />
+    <ClInclude Include="Source\Graphics\Textures\Image.h" />
+    <ClInclude Include="Source\Graphics\Meshes\Mesh.h" />
+    <ClInclude Include="Source\Graphics\Meshes\MeshData.h" />
+    <ClInclude Include="Source\Graphics\Rendering.h" />
+    <ClInclude Include="Source\Graphics\Shaders\Shader.h" />
+    <ClInclude Include="Source\Graphics\Buffers\VertexArray.h" />
+    <ClInclude Include="Source\Graphics\Textures\Texture.h" />
+    <ClInclude Include="Source\stb\stb_image.h" />
+    <ClInclude Include="Source\stb\stb_image_resize.h" />
+    <ClInclude Include="Source\stb\stb_image_write.h" />
+    <ClInclude Include="Source\stb\stb_perlin.h" />
+    <ClInclude Include="Source\stb\stb_rect_pack.h" />
+    <ClInclude Include="Source\stb\stb_truetype.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\DefaultFrag.glsl" />
+    <None Include="Shaders\DefaultVert.glsl" />
+    <None Include="Shaders\SkyboxFrag.glsl" />
+    <None Include="Shaders\SkyboxVert.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Images\Skybox\back.jpg" />
+    <Image Include="Resources\Images\Skybox\bottom.jpg" />
+    <Image Include="Resources\Images\Skybox\front.jpg" />
+    <Image Include="Resources\Images\Skybox\left.jpg" />
+    <Image Include="Resources\Images\Skybox\right.jpg" />
+    <Image Include="Resources\Images\Skybox\top.jpg" />
+    <Image Include="Resources\Images\UV Checker.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
