@@ -10,6 +10,6 @@ uniform mat4 uProjectionMat;
 void main()
 {
 	outPosition = inPosition;
-	vec4 pos = uProjectionMat * uViewMat * vec4(inPosition, 1);
+	vec4 pos = uProjectionMat * mat4(mat3(uViewMat)) * vec4(inPosition, 1);
 	gl_Position =  pos.xyww;
 }

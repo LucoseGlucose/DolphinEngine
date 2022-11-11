@@ -17,7 +17,7 @@ public:
 	Rendering() = delete;
 
 	static inline CameraComponent* outputCam{ nullptr };
-	static inline Event<OpenGLDebugMessageInfo>* debugMessage{ new Event<OpenGLDebugMessageInfo>() };
+	static inline Event<OpenGLDebugMessageInfo> debugMessage{ Event<OpenGLDebugMessageInfo>() };
 
 	static inline Texture* skybox{ nullptr };
 	static inline ShaderProgram* skyboxShader{ nullptr };

@@ -64,28 +64,28 @@ void App::Run()
 void App::GLFWErrorMessage(int errorCode, const char* message)
 {
     cout << message << endl;
-    glfwError->Invoke(GLFWErrorInfo(errorCode, message));
+    glfwError.Invoke(GLFWErrorInfo(errorCode, message));
 }
 
 void App::SetWindowEvents()
 {
     glfwSetErrorCallback(GLFWErrorMessage);
-    glfwSetWindowPosCallback(window, [](GLFWwindow* w, int x, int y) { windowPosChanged->Invoke(WindowIntXYInfo(w, x, y)); });
-    glfwSetWindowSizeCallback(window, [](GLFWwindow* w, int x, int y) { windowSizeChanged->Invoke(WindowIntXYInfo(w, x, y)); });
-    glfwSetWindowCloseCallback(window, [](GLFWwindow* w) { windowClose->Invoke(w); });
-    glfwSetWindowRefreshCallback(window, [](GLFWwindow* w) { windowRefresh->Invoke(w); });
-    glfwSetWindowFocusCallback(window, [](GLFWwindow* w, int focused) { windowFocusChanged->Invoke(WindowBoolInfo(w, focused)); });
-    glfwSetWindowIconifyCallback(window, [](GLFWwindow* w, int minimized) { windowMinimized->Invoke(WindowBoolInfo(w, minimized)); });
-    glfwSetWindowMaximizeCallback(window, [](GLFWwindow* w, int maximized) { windowMaximized->Invoke(WindowBoolInfo(w, maximized)); });
-    glfwSetFramebufferSizeCallback(window, [](GLFWwindow* w, int x, int y) { windowFramebufferSizeChanged->Invoke(WindowIntXYInfo(w, x, y)); });
-    glfwSetWindowContentScaleCallback(window, [](GLFWwindow* w, float x, float y) { windowContentScaleChanged->Invoke(WindowFloatXYInfo(w, x, y)); });
-    glfwSetKeyCallback(window, [](GLFWwindow* w, int k, int s, int a, int m) { keyPressed->Invoke(KeyPressedInfo(w, k, s, a, m)); });
-    glfwSetCharCallback(window, [](GLFWwindow* w, unsigned int c) { charPressed->Invoke(CharPressedInfo(w, c)); });
-    glfwSetCharModsCallback(window, [](GLFWwindow* w, unsigned int c, int m) { charPressedWithMods->Invoke(CharModsInfo(w, c, m)); });
-    glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int b, int a, int m) { mousePressed->Invoke(MouseButtonInfo(w, b, a, m)); });
-    glfwSetCursorPosCallback(window, [](GLFWwindow* w, double x, double y) { mouseMoved->Invoke(WindowDoubleXYInfo(w, x, y)); });
-    glfwSetCursorEnterCallback(window, [](GLFWwindow* w, int e) { mouseEnterWindow->Invoke(WindowBoolInfo(w, e)); });
-    glfwSetScrollCallback(window, [](GLFWwindow* w, double x, double y) { mouseScroll->Invoke(WindowDoubleXYInfo(w, x, y)); });
-    glfwSetDropCallback(window, [](GLFWwindow* w, int c, const char** f) { fileDrop->Invoke(FileDropInfo(w, c, f)); });
-    glfwSetJoystickCallback([](int i, int e) { joystickEvent->Invoke(JoystickInfo(i, e)); });
+    glfwSetWindowPosCallback(window, [](GLFWwindow* w, int x, int y) { windowPosChanged.Invoke(WindowIntXYInfo(w, x, y)); });
+    glfwSetWindowSizeCallback(window, [](GLFWwindow* w, int x, int y) { windowSizeChanged.Invoke(WindowIntXYInfo(w, x, y)); });
+    glfwSetWindowCloseCallback(window, [](GLFWwindow* w) { windowClose.Invoke(w); });
+    glfwSetWindowRefreshCallback(window, [](GLFWwindow* w) { windowRefresh.Invoke(w); });
+    glfwSetWindowFocusCallback(window, [](GLFWwindow* w, int focused) { windowFocusChanged.Invoke(WindowBoolInfo(w, focused)); });
+    glfwSetWindowIconifyCallback(window, [](GLFWwindow* w, int minimized) { windowMinimized.Invoke(WindowBoolInfo(w, minimized)); });
+    glfwSetWindowMaximizeCallback(window, [](GLFWwindow* w, int maximized) { windowMaximized.Invoke(WindowBoolInfo(w, maximized)); });
+    glfwSetFramebufferSizeCallback(window, [](GLFWwindow* w, int x, int y) { windowFramebufferSizeChanged.Invoke(WindowIntXYInfo(w, x, y)); });
+    glfwSetWindowContentScaleCallback(window, [](GLFWwindow* w, float x, float y) { windowContentScaleChanged.Invoke(WindowFloatXYInfo(w, x, y)); });
+    glfwSetKeyCallback(window, [](GLFWwindow* w, int k, int s, int a, int m) { keyPressed.Invoke(KeyPressedInfo(w, k, s, a, m)); });
+    glfwSetCharCallback(window, [](GLFWwindow* w, unsigned int c) { charPressed.Invoke(CharPressedInfo(w, c)); });
+    glfwSetCharModsCallback(window, [](GLFWwindow* w, unsigned int c, int m) { charPressedWithMods.Invoke(CharModsInfo(w, c, m)); });
+    glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int b, int a, int m) { mousePressed.Invoke(MouseButtonInfo(w, b, a, m)); });
+    glfwSetCursorPosCallback(window, [](GLFWwindow* w, double x, double y) { mouseMoved.Invoke(WindowDoubleXYInfo(w, x, y)); });
+    glfwSetCursorEnterCallback(window, [](GLFWwindow* w, int e) { mouseEnterWindow.Invoke(WindowBoolInfo(w, e)); });
+    glfwSetScrollCallback(window, [](GLFWwindow* w, double x, double y) { mouseScroll.Invoke(WindowDoubleXYInfo(w, x, y)); });
+    glfwSetDropCallback(window, [](GLFWwindow* w, int c, const char** f) { fileDrop.Invoke(FileDropInfo(w, c, f)); });
+    glfwSetJoystickCallback([](int i, int e) { joystickEvent.Invoke(JoystickInfo(i, e)); });
 }

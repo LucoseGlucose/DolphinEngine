@@ -59,9 +59,9 @@ void Rendering::Render()
 		MeshComponent* currentMesh = meshes[m];
 		currentMesh->PreRender();
 
-		currentMesh->shader->SetMat4("uModelMat", currentMesh->owner->transform->matrix.Get());
-		currentMesh->shader->SetMat4("uProjectionMat", Rendering::outputCam->projectionMat);
-		currentMesh->shader->SetMat4("uViewMat", Rendering::outputCam->viewMat.Get());
+		currentMesh->shader->SetMat4Cache("uModelMat", currentMesh->owner->transform->matrix.Get());
+		currentMesh->shader->SetMat4Cache("uProjectionMat", Rendering::outputCam->projectionMat);
+		currentMesh->shader->SetMat4Cache("uViewMat", Rendering::outputCam->viewMat.Get());
 
 		glUseProgram(currentMesh->shader->id);
 		glBindVertexArray(currentMesh->mesh->vertexArray->id);
@@ -77,8 +77,8 @@ void Rendering::Render()
 		currentMesh->PostRender();
 	}
 
-	skyboxShader->SetMat4("uProjectionMat", outputCam->projectionMat);
-	skyboxShader->SetMat4("uViewMat", mat4(mat3(outputCam->viewMat.Get())));
+	skyboxShader->SetMat4Cache("uProjectionMat", outputCam->projectionMat);
+	skyboxShader->SetMat4Cache("uViewMat", outputCam->viewMat.Get());
 
 	glUseProgram(skyboxShader->id);
 	glBindVertexArray(skyboxMesh->vertexArray->id);
@@ -92,5 +92,5 @@ void Rendering::DebugMessage(GLenum source, GLenum type, GLuint id, GLenum sever
 	const GLchar* message, const void* userParam)
 {
 	cout << message << endl;
-	debugMessage->Invoke(OpenGLDebugMessageInfo(source, type, id, severity, length, message, userParam));
+	debugMessage.Invoke(OpenGLDebugMessageInfo(source, type, id, severity, length, message, userParam));
 }

@@ -177,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Components\CameraControllerComponent.h" />
+    <ClInclude Include="Source\Core\Utils\ObservableProperty.h" />
     <ClInclude Include="Source\Core\Utils\Utils.h" />
     <ClInclude Include="Source\Graphics\Buffers\AttribBuffer.h" />
     <ClInclude Include="Source\Core\Input.h" />

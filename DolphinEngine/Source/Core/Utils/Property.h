@@ -7,7 +7,7 @@ using namespace std;
 template<typename T>
 struct Property
 {
-private:
+protected:
 	T value;
 	function<T()> get;
 	function<void(T)> set;
@@ -19,8 +19,8 @@ public:
 	Property(T defaultVal, function<T()> get, function<void(T)> set);
 	Property(T defaultVal);
 
-	T Get();
-	void Set(T val);
+	virtual T Get();
+	virtual void Set(T val);
 };
 
 template<typename T>

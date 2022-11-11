@@ -2,7 +2,7 @@
 
 void Input::Init()
 {
-	App::mouseScroll->Subscribe([](WindowDoubleXYInfo i) { scrollDelta = dvec2(i.x, i.y); });
+	App::mouseScroll.Subscribe([](WindowDoubleXYInfo i) { scrollDelta = dvec2(i.x, i.y); });
 }
 
 void Input::Update()

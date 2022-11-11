@@ -8,14 +8,17 @@ in vec3 outBitangent;
 
 out vec4 outColor;
 
-uniform vec3 uAlbedo;
+uniform vec4 uAlbedo = vec4(0, 0, 0, 1);
 layout(binding=0) uniform sampler2D uAlbedoTex;
-uniform float uAlpha = 1;
+uniform float uAlphaClip;
 uniform vec3 uSpecular;
 layout(binding=1) uniform sampler2D uSpecularTex;
 
 void main()
 {
-	vec3 diffuse = texture(uAlbedoTex, outUV).xyz + uAlbedo;
-	outColor = vec4(diffuse, uAlpha);
+	vec4 albedo = texture(uAlbedoTex, outUV) + uAlbedo;
+
+	if (albedo.a <= uAlphaClip) discard;
+
+	outColor = albedo;
 }
