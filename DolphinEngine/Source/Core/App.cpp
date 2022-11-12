@@ -28,7 +28,9 @@ void App::Run()
         mesh->mesh = new Mesh(MeshData("Models/Cube.obj"));
 
         mesh->shader = new ShaderProgram(vector<string>{ "DefaultVert.glsl", "DefaultFrag.glsl" }, vector<int>{ GL_VERTEX_SHADER, GL_FRAGMENT_SHADER });
-        mesh->shader->SetVec4("uAlbedo", vec4(.1, .3, 1, 1));
+        mesh->shader->SetVec4("uAlbedo", vec4(0));
+        mesh->shader->SetFloat("uAlphaClip", .9f);
+        mesh->shader->textures.push_back(new Texture(vector<Image*>{ new Image("Images/DolphinEngine White.png") }, GL_TEXTURE_2D));
 
         CameraComponent* cam = scene->CreateObject("Camera")->AddComponent<CameraComponent>();
         cam->owner->AddComponent<CameraControllerComponent>();

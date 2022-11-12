@@ -218,6 +218,7 @@
     <None Include="Shaders\SkyboxVert.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Images\DolphinEngine White.png" />
     <Image Include="Resources\Images\DolphinEngine.png" />
     <Image Include="Resources\Images\Skybox\back.jpg" />
     <Image Include="Resources\Images\Skybox\bottom.jpg" />

@@ -40,14 +40,14 @@ void main()
 	vec4 albedo = texture(uAlbedoTex, outUV) + uAlbedo;
 	if (albedo.a <= uAlphaClip) discard;
 
-	vec3 finalColor = uAmbientColor * uAlbedo.xyz;
+	vec3 finalColor = uAmbientColor * albedo.xyz;
 
 	for (int i = 0; i < 5; i++)
 	{
 		vec3 lightDir = normalize(uLights[i].uPosition - outWorldPosition * min(uLights[i].uType, 1));
 
 		float diffuseStrength = max(dot(lightDir, outWorldNormal), 0);
-		vec3 diffuse = diffuseStrength * uAlbedo.xyz * uLights[i].uColor;
+		vec3 diffuse = diffuseStrength * albedo.xyz * uLights[i].uColor;
 
 		vec3 viewDir = normalize(uCameraPos - outWorldPosition);
 		vec3 reflectDir = reflect(-lightDir, outWorldNormal);
