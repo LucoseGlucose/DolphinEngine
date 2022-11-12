@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <optional>
+#include <algorithm>
+#include <format>
 
 #include "Rendering.h"
 #include "MeshComponent.h"
@@ -9,6 +11,8 @@
 #include "Component.h"
 #include "App.h"
 #include "Texture.h"
+#include "LightComponent.h"
+#include "LightType.h"
 
 using namespace std;
 
@@ -53,6 +57,10 @@ void Rendering::Init()
 void Rendering::Render()
 {
 	vector<MeshComponent*> meshes = App::scene->FindComponents<MeshComponent>();
+	vector<LightComponent*> lights = App::scene->FindComponents<LightComponent>();
+
+	sort(meshes.begin(), meshes.end(), [](MeshComponent* m1, MeshComponent* m2) { return glm::distance(m1->owner->transform->position,
+		outputCam->owner->transform->position) > glm::distance(m2->owner->transform->position, outputCam->owner->transform->position); });
 
 	for (size_t m = 0; m < meshes.size(); m++)
 	{
@@ -62,18 +70,59 @@ void Rendering::Render()
 		currentMesh->shader->SetMat4Cache("uModelMat", currentMesh->owner->transform->matrix.Get());
 		currentMesh->shader->SetMat4Cache("uProjectionMat", Rendering::outputCam->projectionMat);
 		currentMesh->shader->SetMat4Cache("uViewMat", Rendering::outputCam->viewMat.Get());
+		currentMesh->shader->SetVec3Cache("uAmbientColor", Rendering::ambientColor);
+		currentMesh->shader->SetVec3Cache("uCameraPos", Rendering::outputCam->owner->transform->position);
+
+		sort(lights.begin(), lights.end(), [&](LightComponent* l1, LightComponent* l2) { return glm::distance(l1->owner->transform->position,
+			currentMesh->owner->transform->position) > glm::distance(l2->owner->transform->position, currentMesh->owner->transform->position); });
+
+		for (size_t i = 0; i < 5; i++)
+		{
+			if (i < lights.size())
+			{
+				if (lights[i]->type == LightType::Directional) 
+					currentMesh->shader->SetVec3Cache(std::format("uLights[{}].uPosition", i), -lights[i]->owner->transform->forward.Get());
+				else currentMesh->shader->SetVec3Cache(std::format("uLights[{}].uPosition", i), lights[i]->owner->transform->position);
+
+				if (lights[i]->type == LightType::Directional) currentMesh->shader->SetVec2Cache(std::format("uLights[{}].uFalloff", i), vec2(0));
+				else currentMesh->shader->SetVec2Cache(std::format("uLights[{}].uFalloff", i), lights[i]->falloff);
+
+				currentMesh->shader->SetIntCache(std::format("uLights[{}].uType", i), lights[i]->type);
+				currentMesh->shader->SetVec3Cache(std::format("uLights[{}].uColor", i), lights[i]->output.Get());
+			}
+			else
+			{
+				currentMesh->shader->SetIntCache(std::format("uLights[{}].uType", i), 0);
+				currentMesh->shader->SetVec3Cache(std::format("uLights[{}].uColor", i), vec3(0));
+				currentMesh->shader->SetVec3Cache(std::format("uLights[{}].uPosition", i), vec3(0));
+				currentMesh->shader->SetVec2Cache(std::format("uLights[{}].uFalloff", i), vec2(0));
+			}
+		}
 
 		glUseProgram(currentMesh->shader->id);
 		glBindVertexArray(currentMesh->mesh->vertexArray->id);
-		glBindBuffer(currentMesh->mesh->vertexArray->indexBuffer->bufferType, currentMesh->mesh->vertexArray->indexBuffer->id);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh->mesh->vertexArray->indexBuffer->id);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(skybox->textureType, skybox->id);
 
 		for (size_t i = 0; i < currentMesh->shader->textures.size(); i++)
 		{
-			glActiveTexture(GL_TEXTURE0 + i);
+			glActiveTexture(GL_TEXTURE1 + i);
 			glBindTexture(currentMesh->shader->textures[i]->textureType, currentMesh->shader->textures[i]->id);
 		}
 
 		glDrawElements(GL_TRIANGLES, currentMesh->mesh->meshData.indices.size(), GL_UNSIGNED_INT, nullptr);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(skybox->textureType, 0);
+
+		for (size_t i = 0; i < currentMesh->shader->textures.size(); i++)
+		{
+			glActiveTexture(GL_TEXTURE1 + i);
+			glBindTexture(currentMesh->shader->textures[i]->textureType, 0);
+		}
+
 		currentMesh->PostRender();
 	}
 
@@ -81,11 +130,17 @@ void Rendering::Render()
 	skyboxShader->SetMat4Cache("uViewMat", outputCam->viewMat.Get());
 
 	glUseProgram(skyboxShader->id);
+
 	glBindVertexArray(skyboxMesh->vertexArray->id);
-	glBindBuffer(skyboxMesh->vertexArray->indexBuffer->bufferType, skyboxMesh->vertexArray->indexBuffer->id);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, skyboxMesh->vertexArray->indexBuffer->id);
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(skybox->textureType, skybox->id);
+
 	glDrawElements(GL_TRIANGLES, skyboxMesh->meshData.indices.size(), GL_UNSIGNED_INT, nullptr);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(skybox->textureType, 0);
 }
 
 void Rendering::DebugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,

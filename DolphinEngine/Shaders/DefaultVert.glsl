@@ -12,6 +12,9 @@ out vec2 outUV;
 out vec3 outTangent;
 out vec3 outBitangent;
 
+out vec3 outWorldPosition;
+out vec3 outWorldNormal;
+
 uniform mat4 uModelMat;
 uniform mat4 uViewMat;
 uniform mat4 uProjectionMat;
@@ -23,6 +26,9 @@ void main()
 	outUV = inUV;
 	outTangent = inTangent;
 	outBitangent = inBitangent;
+
+	outWorldPosition = (uModelMat * vec4(inPosition, 1)).xyz;
+	outWorldNormal = mat3(transpose(inverse(uModelMat))) * inNormal;
 
 	gl_Position =  uProjectionMat * uViewMat * uModelMat * vec4(inPosition, 1);
 }

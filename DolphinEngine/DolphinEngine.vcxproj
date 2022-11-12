@@ -177,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Components\CameraControllerComponent.h" />
+    <ClInclude Include="Source\Components\LightComponent.h" />
     <ClInclude Include="Source\Core\Utils\ObservableProperty.h" />
     <ClInclude Include="Source\Core\Utils\Utils.h" />
     <ClInclude Include="Source\Graphics\Buffers\AttribBuffer.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Source\Core\Transform.h" />
     <ClInclude Include="Source\Graphics\Buffers\Buffer.h" />
     <ClInclude Include="Source\Graphics\Buffers\IndexBuffer.h" />
+    <ClInclude Include="Source\Graphics\LightType.h" />
     <ClInclude Include="Source\Graphics\Shaders\ShaderProgram.h" />
     <ClInclude Include="Source\Graphics\Textures\Image.h" />
     <ClInclude Include="Source\Graphics\Meshes\Mesh.h" />

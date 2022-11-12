@@ -6,6 +6,7 @@
 #include "CameraComponent.h"
 #include "CameraControllerComponent.h"
 #include "Input.h"
+#include "LightComponent.h"
 
 using namespace std;
 
@@ -24,16 +25,21 @@ void App::Run()
     scene = Scene::CreateScene([](Scene* scene)
     {
         MeshComponent* mesh = scene->CreateObject("Mesh")->AddComponent<MeshComponent>();
-
         mesh->mesh = new Mesh(MeshData("Models/Cube.obj"));
 
         mesh->shader = new ShaderProgram(vector<string>{ "DefaultVert.glsl", "DefaultFrag.glsl" }, vector<int>{ GL_VERTEX_SHADER, GL_FRAGMENT_SHADER });
-        mesh->shader->textures.push_back(new Texture(vector<Image*>{ new Image("Images/UV Checker.png") }, GL_TEXTURE_2D));
+        mesh->shader->SetVec4("uAlbedo", vec4(.1, .3, 1, 1));
 
         CameraComponent* cam = scene->CreateObject("Camera")->AddComponent<CameraComponent>();
         cam->owner->AddComponent<CameraControllerComponent>();
         cam->owner->transform->position = vec3(0.f, 0, -5.f);
         Rendering::outputCam = cam;
+
+        LightComponent* light = scene->CreateObject("Light")->AddComponent<LightComponent>();
+        light->type = LightType::Directional;
+        light->color = vec3(.95, .98, .9);
+        light->strength = 1.5f;
+        light->owner->transform->rotation = vec3(30, -155, 0);
     },
     "Main Level");
 

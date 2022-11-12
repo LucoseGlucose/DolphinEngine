@@ -22,6 +22,7 @@ public:
 	static inline Texture* skybox{ nullptr };
 	static inline ShaderProgram* skyboxShader{ nullptr };
 	static inline Mesh* skyboxMesh{ nullptr };
+	static inline vec3 ambientColor{ vec3(.2f) };
 
 	static void Init();
 	static void Render();
