@@ -205,5 +205,8 @@
     <Image Include="Resources\Images\Skybox\top.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Images\DolphinEngine.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
