@@ -28,6 +28,9 @@ public:
 	ShaderProgram(vector<string> paths, vector<int> shaderTypes);
 	~ShaderProgram();
 
+	void Bind();
+	void Unbind();
+
 	unsigned int id;
 	map<string, int> uniforms;
 

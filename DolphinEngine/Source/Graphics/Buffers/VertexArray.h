@@ -18,6 +18,9 @@ public:
 	VertexArray(const MeshData& meshData);
 	VertexArray(vector<AttribBuffer*> buffers, IndexBuffer* indexBuffer);
 
+	void Bind();
+	void Unbind();
+
 	unsigned int id;
 	vector<AttribBuffer*> attribBuffers;
 	IndexBuffer* indexBuffer;

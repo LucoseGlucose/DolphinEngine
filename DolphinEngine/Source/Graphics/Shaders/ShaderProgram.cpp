@@ -47,3 +47,13 @@ ShaderProgram::~ShaderProgram()
 	}
 	glDeleteProgram(id);
 }
+
+void ShaderProgram::Bind()
+{
+	glUseProgram(id);
+}
+
+void ShaderProgram::Unbind()
+{
+	glUseProgram(0);
+}

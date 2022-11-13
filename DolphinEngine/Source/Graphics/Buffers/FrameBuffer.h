@@ -17,6 +17,9 @@ public:
 	FrameBuffer(vector<Texture*> textures, vector<RenderBuffer*> renderBuffers, vector<int> attachTypes);
 	~FrameBuffer();
 
+	void Bind();
+	void Unbind();
+
 	unsigned int id;
 	vector<Texture*> textures;
 	vector<RenderBuffer*> renderBuffers;

@@ -43,3 +43,15 @@ VertexArray::VertexArray(vector<AttribBuffer*> attribBuffers, IndexBuffer* index
 
 	glBindVertexArray(0);
 }
+
+void VertexArray::Bind()
+{
+	glBindVertexArray(id);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer->id);
+}
+
+void VertexArray::Unbind()
+{
+	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}

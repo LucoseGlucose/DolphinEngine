@@ -27,5 +27,6 @@ public:
 
 	static void Init();
 	static void Render();
+	static void RenderMesh(Mesh* mesh, ShaderProgram* shader);
 	static void DebugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
 };

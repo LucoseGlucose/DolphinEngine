@@ -16,6 +16,7 @@ public:
 	Mesh* mesh;
 	ShaderProgram* shader;
 
-	virtual inline void PreRender() {  }
-	virtual inline void PostRender() {  }
+	virtual void PreRender();
+	virtual void Render();
+	virtual void PostRender();
 };

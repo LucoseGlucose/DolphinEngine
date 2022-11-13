@@ -28,6 +28,9 @@ public:
 
 	~Texture();
 
+	void Bind(int slot);
+	void Unbind(int slot);
+
 	unsigned int id;
 	vector<int> widths;
 	vector<int> heights;

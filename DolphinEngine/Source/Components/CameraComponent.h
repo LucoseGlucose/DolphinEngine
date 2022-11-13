@@ -24,6 +24,7 @@ public:
 	~CameraComponent();
 
 	virtual void Create(SceneObject* owner) override;
+	virtual void CreateNewFrameBuffer(int xSize, int ySize);
 
 	FrameBuffer* output;
 	float fov = 60.f;

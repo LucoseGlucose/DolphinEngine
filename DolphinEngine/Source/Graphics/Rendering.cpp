@@ -44,6 +44,8 @@ void Rendering::Init()
 			new Image("Images/Skybox/back.jpg"), new Image("Images/Skybox/left.jpg"), new Image("Images/Skybox/top.jpg"),
 			new Image("Images/Skybox/bottom.jpg")}, GL_TEXTURE_CUBE_MAP, vector<int>{ GL_TEXTURE_CUBE_MAP_POSITIVE_Z, GL_TEXTURE_CUBE_MAP_POSITIVE_X,
 			GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, GL_TEXTURE_CUBE_MAP_NEGATIVE_X, GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, GL_TEXTURE_CUBE_MAP_POSITIVE_Y });
+
+		skybox->Bind(0);
 	}
 
 	if (skyboxShader == nullptr)
@@ -70,7 +72,7 @@ void Rendering::Init()
 
 void Rendering::Render()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, outputCam->output->id);
+	outputCam->output->Bind();
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -84,12 +86,6 @@ void Rendering::Render()
 	{
 		MeshComponent* currentMesh = meshes[m];
 		currentMesh->PreRender();
-
-		currentMesh->shader->SetMat4Cache("uModelMat", currentMesh->owner->transform->matrix.Get());
-		currentMesh->shader->SetMat4Cache("uProjectionMat", Rendering::outputCam->projectionMat);
-		currentMesh->shader->SetMat4Cache("uViewMat", Rendering::outputCam->viewMat.Get());
-		currentMesh->shader->SetVec3Cache("uAmbientColor", Rendering::ambientColor);
-		currentMesh->shader->SetVec3Cache("uCameraPos", Rendering::outputCam->owner->transform->position);
 
 		sort(lights.begin(), lights.end(), [&](LightComponent* l1, LightComponent* l2) { return glm::distance(l1->owner->transform->position,
 			currentMesh->owner->transform->position) > glm::distance(l2->owner->transform->position, currentMesh->owner->transform->position); });
@@ -117,55 +113,44 @@ void Rendering::Render()
 			}
 		}
 
-		glUseProgram(currentMesh->shader->id);
-		glBindVertexArray(currentMesh->mesh->vertexArray->id);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh->mesh->vertexArray->indexBuffer->id);
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(skybox->textureType, skybox->id);
-
-		for (size_t i = 0; i < currentMesh->shader->textures.size(); i++)
-		{
-			glActiveTexture(GL_TEXTURE1 + i);
-			glBindTexture(currentMesh->shader->textures[i]->textureType, currentMesh->shader->textures[i]->id);
-		}
-
-		glDrawElements(GL_TRIANGLES, currentMesh->mesh->meshData.indices.size(), GL_UNSIGNED_INT, nullptr);
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(skybox->textureType, 0);
-
-		for (size_t i = 0; i < currentMesh->shader->textures.size(); i++)
-		{
-			glActiveTexture(GL_TEXTURE1 + i);
-			glBindTexture(currentMesh->shader->textures[i]->textureType, 0);
-		}
-
+		currentMesh->Render();
 		currentMesh->PostRender();
 	}
 
 	skyboxShader->SetMat4Cache("uProjectionMat", outputCam->projectionMat);
 	skyboxShader->SetMat4Cache("uViewMat", outputCam->viewMat.Get());
 
-	glUseProgram(skyboxShader->id);
+	RenderMesh(skyboxMesh, skyboxShader);
 
-	glBindVertexArray(skyboxMesh->vertexArray->id);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, skyboxMesh->vertexArray->indexBuffer->id);
-
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(skybox->textureType, skybox->id);
-
-	glDrawElements(GL_TRIANGLES, skyboxMesh->meshData.indices.size(), GL_UNSIGNED_INT, nullptr);
-
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	outputCam->output->Unbind();
 	glDisable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glUseProgram(postProcessShader->id);
-	glBindVertexArray(quad->vertexArray->id);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quad->vertexArray->indexBuffer->id);
-	glBindTexture(GL_TEXTURE_2D, outputCam->output->textures[0]->id);
-	glDrawElements(GL_TRIANGLES, quad->meshData.indices.size(), GL_UNSIGNED_INT, nullptr);
+	for (size_t i = 0; i < outputCam->output->textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE1 + i);
+		glBindTexture(outputCam->output->textures[i]->textureType, outputCam->output->textures[i]->id);
+	}
+
+	RenderMesh(quad, postProcessShader);
+}
+
+void Rendering::RenderMesh(Mesh* mesh, ShaderProgram* shader)
+{
+	shader->Bind();
+	mesh->vertexArray->Bind();
+
+	for (size_t i = 0; i < shader->textures.size(); i++)
+	{
+		shader->textures[i]->Bind(i + 1);
+	}
+
+	glDrawElements(GL_TRIANGLES, mesh->vertexArray->indexBuffer->size, GL_UNSIGNED_INT, nullptr);
+
+	for (size_t i = 0; i < shader->textures.size(); i++)
+	{
+		shader->textures[i]->Unbind(i + 1);
+	}
 }
 
 void Rendering::DebugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,

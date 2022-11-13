@@ -145,3 +145,15 @@ Texture::~Texture()
 {
 	glDeleteTextures(1, &id);
 }
+
+void Texture::Bind(int slot)
+{
+	glActiveTexture(GL_TEXTURE0 + slot);
+	glBindTexture(textureType, id);
+}
+
+void Texture::Unbind(int slot)
+{
+	glActiveTexture(GL_TEXTURE0 + slot);
+	glBindTexture(textureType, 0);
+}

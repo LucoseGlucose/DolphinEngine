@@ -40,3 +40,13 @@ FrameBuffer::~FrameBuffer()
 		delete renderBuffers[i];
 	}
 }
+
+void FrameBuffer::Bind()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, id);
+}
+
+void FrameBuffer::Unbind()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
