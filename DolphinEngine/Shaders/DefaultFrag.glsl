@@ -23,7 +23,7 @@ uniform float uAlphaClip;
 
 uniform vec3 uSpecular = vec3(.25);
 layout(binding=2) uniform sampler2D uSpecularTex;
-uniform float uShininess = 24;
+uniform float uShininess = 28;
 
 struct Light
 {

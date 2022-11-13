@@ -30,10 +30,12 @@ void App::Run()
         mesh->shader = new ShaderProgram(vector<string>{ "DefaultVert.glsl", "DefaultFrag.glsl" }, vector<int>{ GL_VERTEX_SHADER, GL_FRAGMENT_SHADER });
         mesh->shader->SetVec4("uAlbedo", vec4(0));
         mesh->shader->textures.push_back(new Texture(new Image("Images/DolphinEngine White.png"), GL_TEXTURE_2D));
+        mesh->shader->SetVec3("uSpecular", vec3(0));
+        mesh->shader->textures.push_back(new Texture(new Image("Images/DolphinEngine Specular.png"), GL_TEXTURE_2D));
 
         CameraComponent* cam = scene->CreateObject("Camera")->AddComponent<CameraComponent>();
         cam->owner->AddComponent<CameraControllerComponent>();
-        cam->owner->transform->position = vec3(0.f, 0, -5.f);
+        cam->owner->transform->position = vec3(0, 0, 5);
         Rendering::outputCam = cam;
 
         LightComponent* light = scene->CreateObject("Light")->AddComponent<LightComponent>();

@@ -7,7 +7,7 @@ out vec2 outUV;
 
 void main()
 {
-	outUV = vec2(1 - inUV.x, inUV.y);
+	outUV = vec2(inUV.x, inUV.y);
 
-	gl_Position =  vec4(inPosition, 1);
+	gl_Position =  vec4(-inPosition.x, inPosition.y, 0, 1);
 }
