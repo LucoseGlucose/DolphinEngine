@@ -155,6 +155,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Graphics\Buffers\RenderBuffer.cpp" />
+    <ClCompile Include="Source\Graphics\Buffers\FrameBuffer.cpp" />
     <ClCompile Include="Source\Components\CameraComponent.cpp" />
     <ClCompile Include="Source\Components\CameraControllerComponent.cpp" />
     <ClCompile Include="Source\Core\Input.cpp" />
@@ -177,6 +179,8 @@
     <ClCompile Include="Source\stb\stb_vorbis.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Graphics\Buffers\RenderBuffer.h" />
+    <ClInclude Include="Source\Graphics\Buffers\FrameBuffer.h" />
     <ClInclude Include="Source\Components\CameraControllerComponent.h" />
     <ClInclude Include="Source\Components\LightComponent.h" />
     <ClInclude Include="Source\Core\Utils\ObservableProperty.h" />
@@ -215,6 +219,8 @@
   <ItemGroup>
     <None Include="Shaders\DefaultFrag.glsl" />
     <None Include="Shaders\DefaultVert.glsl" />
+    <None Include="Shaders\PostProcessFrag.glsl" />
+    <None Include="Shaders\PostProcessVert.glsl" />
     <None Include="Shaders\SkyboxFrag.glsl" />
     <None Include="Shaders\SkyboxVert.glsl" />
   </ItemGroup>

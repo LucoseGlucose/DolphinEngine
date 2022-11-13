@@ -75,6 +75,12 @@
     <ClCompile Include="Source\Components\CameraComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Graphics\Buffers\FrameBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\Buffers\RenderBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\App.h">
@@ -179,12 +185,20 @@
     <ClInclude Include="Source\Graphics\LightType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Graphics\Buffers\FrameBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\Buffers\RenderBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\DefaultVert.glsl" />
     <None Include="Shaders\DefaultFrag.glsl" />
     <None Include="Shaders\SkyboxVert.glsl" />
     <None Include="Shaders\SkyboxFrag.glsl" />
+    <None Include="Shaders\PostProcessFrag.glsl" />
+    <None Include="Shaders\PostProcessVert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Images\UV Checker.png">

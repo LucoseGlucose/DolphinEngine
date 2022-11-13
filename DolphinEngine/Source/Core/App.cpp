@@ -15,7 +15,6 @@ void App::Run()
     glfwInit();
 
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
-    glfwWindowHint(GLFW_SAMPLES, 4);
 
     window = glfwCreateWindow(1280, 720, "DolphinEngine", nullptr, nullptr);
     glfwMakeContextCurrent(window);
@@ -30,14 +29,12 @@ void App::Run()
 
         mesh->shader = new ShaderProgram(vector<string>{ "DefaultVert.glsl", "DefaultFrag.glsl" }, vector<int>{ GL_VERTEX_SHADER, GL_FRAGMENT_SHADER });
         mesh->shader->SetVec4("uAlbedo", vec4(0));
-        mesh->shader->SetFloat("uAlphaClip", .9f);
-        mesh->shader->textures.push_back(new Texture(vector<Image*>{ new Image("Images/DolphinEngine White.png") }, GL_TEXTURE_2D));
+        mesh->shader->textures.push_back(new Texture(new Image("Images/DolphinEngine White.png"), GL_TEXTURE_2D));
 
         CameraComponent* cam = scene->CreateObject("Camera")->AddComponent<CameraComponent>();
         cam->owner->AddComponent<CameraControllerComponent>();
         cam->owner->transform->position = vec3(0.f, 0, -5.f);
         Rendering::outputCam = cam;
-        cam->orthographic = true;
 
         LightComponent* light = scene->CreateObject("Light")->AddComponent<LightComponent>();
         light->type = LightType::Directional;
@@ -53,8 +50,6 @@ void App::Run()
 
     while (!glfwWindowShouldClose(window))
     {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
         Input::Update();
         scene->Update();
         Rendering::Render();

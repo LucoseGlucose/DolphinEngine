@@ -10,6 +10,7 @@
 #include "SceneObject.h"
 #include "App.h"
 #include "EventArgs.h"
+#include "FrameBuffer.h"
 
 using namespace glm;
 using namespace std;
@@ -24,6 +25,7 @@ public:
 
 	virtual void Create(SceneObject* owner) override;
 
+	FrameBuffer* output;
 	float fov = 60.f;
 	vec2 size = vec2(App::windowSize.Get().x, App::windowSize.Get().y);
 	float nearClip = .1f;

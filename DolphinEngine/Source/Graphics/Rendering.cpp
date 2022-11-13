@@ -21,13 +21,11 @@ void Rendering::Init()
 {
 	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 	glDebugMessageCallback(DebugMessage, nullptr);
-	glEnable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
-	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDepthFunc(GL_LEQUAL);
-	glEnable(GL_MULTISAMPLE);
 
 	function<void(WindowIntXYInfo)> resizeFunc = [](WindowIntXYInfo i) { glViewport(0, 0, i.x, i.y); };
 	App::windowSizeChanged.Subscribe(resizeFunc);
@@ -57,10 +55,25 @@ void Rendering::Init()
 	{
 		skyboxMesh = new Mesh(MeshData("Models/Inverted Cube.obj"));
 	}
+
+	if (quad == nullptr)
+	{
+		quad = new Mesh(MeshData("Models/Quad.obj"));
+	}
+
+	if (postProcessShader == nullptr)
+	{
+		postProcessShader = new ShaderProgram(vector<string>{ "PostProcessVert.glsl", "PostProcessFrag.glsl" },
+			vector<int>{ GL_VERTEX_SHADER, GL_FRAGMENT_SHADER });
+	}
 }
 
 void Rendering::Render()
 {
+	glBindFramebuffer(GL_FRAMEBUFFER, outputCam->output->id);
+	glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	vector<MeshComponent*> meshes = App::scene->FindComponents<MeshComponent>();
 	vector<LightComponent*> lights = App::scene->FindComponents<LightComponent>();
 
@@ -144,8 +157,15 @@ void Rendering::Render()
 
 	glDrawElements(GL_TRIANGLES, skyboxMesh->meshData.indices.size(), GL_UNSIGNED_INT, nullptr);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(skybox->textureType, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glDisable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glUseProgram(postProcessShader->id);
+	glBindVertexArray(quad->vertexArray->id);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, quad->vertexArray->indexBuffer->id);
+	glBindTexture(GL_TEXTURE_2D, outputCam->output->textures[0]->id);
+	glDrawElements(GL_TRIANGLES, quad->meshData.indices.size(), GL_UNSIGNED_INT, nullptr);
 }
 
 void Rendering::DebugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,

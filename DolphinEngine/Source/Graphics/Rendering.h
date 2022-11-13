@@ -9,6 +9,7 @@
 
 class Rendering
 {
+
 	static inline Mesh* quad{ nullptr };
 	static inline ShaderProgram* postProcessShader{ nullptr };
 

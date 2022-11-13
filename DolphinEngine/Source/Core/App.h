@@ -26,7 +26,8 @@ public:
 			glfwGetWindowSize(window, &width, &height);
 			
 			return ivec2(width, height);
-		}, [](ivec2 val)
+		},
+		[](ivec2 val)
 		{
 			glfwSetWindowSize(window, val.x, val.y);
 		})};
