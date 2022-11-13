@@ -4,6 +4,7 @@
 #include <optional>
 #include <algorithm>
 #include <format>
+#include <functional>
 
 #include "Rendering.h"
 #include "MeshComponent.h"
@@ -26,6 +27,10 @@ void Rendering::Init()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDepthFunc(GL_LEQUAL);
+	glEnable(GL_MULTISAMPLE);
+
+	function<void(WindowIntXYInfo)> resizeFunc = [](WindowIntXYInfo i) { glViewport(0, 0, i.x, i.y); };
+	App::windowSizeChanged.Subscribe(resizeFunc);
 
 	if (outputCam == nullptr)
 	{

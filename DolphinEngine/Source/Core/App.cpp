@@ -15,6 +15,7 @@ void App::Run()
     glfwInit();
 
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+    glfwWindowHint(GLFW_SAMPLES, 4);
 
     window = glfwCreateWindow(1280, 720, "DolphinEngine", nullptr, nullptr);
     glfwMakeContextCurrent(window);
@@ -36,6 +37,7 @@ void App::Run()
         cam->owner->AddComponent<CameraControllerComponent>();
         cam->owner->transform->position = vec3(0.f, 0, -5.f);
         Rendering::outputCam = cam;
+        cam->orthographic = true;
 
         LightComponent* light = scene->CreateObject("Light")->AddComponent<LightComponent>();
         light->type = LightType::Directional;

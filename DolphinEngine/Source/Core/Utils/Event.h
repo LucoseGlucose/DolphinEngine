@@ -13,8 +13,8 @@ class Event
 public:
 
 	void Invoke(T params);
-	void Subscribe(const function<void(T)>& func);
-	void Unsubscribe(const function<void(T)>& func);
+	int Subscribe(const function<void(T)>& func);
+	void Unsubscribe(int index);
 };
 
 template <typename T>
@@ -27,13 +27,14 @@ void Event<T>::Invoke(T params)
 }
 
 template <typename T>
-void Event<T>::Subscribe(const function<void(T)>& func)
+int Event<T>::Subscribe(const function<void(T)>& func)
 {
 	funcs.push_back(func);
+	return funcs.size() - 1;
 }
 
 template <typename T>
-void Event<T>::Unsubscribe(const function<void(T)>& func)
+void Event<T>::Unsubscribe(int index)
 {
-	funcs.erase(remove(funcs.begin(), funcs.end(), func));
+	funcs.erase(funcs.begin() + index);
 }
